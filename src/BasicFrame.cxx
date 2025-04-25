@@ -27,14 +27,14 @@ BasicFrame::BasicFrame(Options* opt)
    std::string treeName = fOptions->TreeName();
 	if(treeName.empty()) {
 		TFile check(fOptions->InputFiles()[0].c_str());
-		if(check.Get("higsdata") != nullptr) {
-			treeName = "higsdata";
+		if(check.Get("higs_data") != nullptr) {
+			treeName = "higs_data";
 		}
 		check.Close();
 	}
 	if(treeName.empty()) {
 		std::ostringstream str;
-      str << "Failed to find 'higsdata' in '" << fOptions->InputFiles()[0] << "', either provide a different tree name via --tree-name flag or check input file" << std::endl;
+      str << "Failed to find 'higs_data' in '" << fOptions->InputFiles()[0] << "', either provide a different tree name via --tree-name flag or check input file" << std::endl;
       throw std::runtime_error(str.str());
    }
 
@@ -60,6 +60,8 @@ BasicFrame::BasicFrame(Options* opt)
 
    // create an input list to pass to the helper
    auto* inputList = new TList;
+
+	inputList->Add(fOptions->Calibration());
 
    /// Try to load an external library with the correct function in it.
    /// If that library does not exist, try to compile it.
@@ -139,6 +141,8 @@ void BasicFrame::Run(Redirect*& redirect)
    } else {
       std::cout << "Error, output list is nullptr!" << std::endl;
    }
+
+	fOptions->Calibration()->Write();
 
    // start new redirect, appending to the previous files we had redirected to
    redirect = new Redirect(outFile, errFile, true);

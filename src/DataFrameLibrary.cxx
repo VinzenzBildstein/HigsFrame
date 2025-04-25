@@ -148,7 +148,7 @@ void DataFrameLibrary::Compile(std::string& path, const size_t& dot, const size_
    std::cout << DCYAN << "----------  starting compilation of user code  ----------" << RESET_COLOR << std::endl;
    std::string        objectFile        = path.replace(dot, std::string::npos, ".o");
    std::ostringstream command;
-   command << "g++ -c -fPIC -g $(root-config --cflags) -I" << includePath;
+   command << "g++ -c -fPIC -g $(root-config --cflags) -I$HIGSSYS/include -I" << includePath;
 #ifdef OS_DARWIN
    command << " -I/opt/local/include ";
 #endif
@@ -160,7 +160,7 @@ void DataFrameLibrary::Compile(std::string& path, const size_t& dot, const size_
    }
    std::cout << DCYAN << "----------  starting linking user code  -----------------" << RESET_COLOR << std::endl;
    std::ostringstream().swap(command);   // create new (empty) stringstream and swap it with command this resets the underlying string and all error flags
-   command << "g++ -fPIC -g -shared $(root-config --glibs) -o " << sharedLibrary << " " << objectFile;
+   command << "g++ -fPIC -g -shared -L$HIGSSYS/lib -lHigs $(root-config --glibs) -o " << sharedLibrary << " " << objectFile;
    if(std::system(command.str().c_str()) != 0) {
       std::ostringstream str;
       str << "Unable to link shared object library " << sharedLibrary << " using " << DBLUE << "'" << command.str() << "'" << RESET_COLOR << std::endl;

@@ -11,6 +11,7 @@
 #include "TCutG.h"
 #include "TBufferFile.h"
 
+#include "Calibration.h"
 #include "Options.h"
 #include "CustomMap.h"
 
@@ -30,12 +31,13 @@ public:
 
 protected:
    std::vector<std::shared_ptr<std::map<std::string, TList>>> fLists;                   // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! one map of lists and directories per data processing slot to hold all output objects
-   std::vector<CustomMap<std::string, TH1*>>                   fH1;                      // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! one map per data processing slot for 1D histograms
-   std::vector<CustomMap<std::string, TH2*>>                   fH2;                      // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! one map per data processing slot for 2D histograms
-   std::vector<CustomMap<std::string, TH3*>>                   fH3;                      // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! one map per data processing slot for 3D histograms
-   std::vector<CustomMap<std::string, TTree*>>                 fTree;                    // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! one map per data processing slot for trees
-   std::vector<CustomMap<std::string, TObject*>>               fObject;                  // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! one map per data processing slot for any TObjects
+   std::vector<CustomMap<std::string, TH1*>>                  fH1;                      // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! one map per data processing slot for 1D histograms
+   std::vector<CustomMap<std::string, TH2*>>                  fH2;                      // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! one map per data processing slot for 2D histograms
+   std::vector<CustomMap<std::string, TH3*>>                  fH3;                      // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! one map per data processing slot for 3D histograms
+   std::vector<CustomMap<std::string, TTree*>>                fTree;                    // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! one map per data processing slot for trees
+   std::vector<CustomMap<std::string, TObject*>>              fObject;                  // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! one map per data processing slot for any TObjects
    std::map<std::string, TCutG*>                              fCuts;                    // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! map of cuts
+   Calibration*                                               fCalibration{nullptr};    // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! calibration
    std::string                                                fPrefix{"BasicHelper"};   // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes) //!<! name of this action (used as prefix)
 
 private:

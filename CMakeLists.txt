@@ -80,6 +80,18 @@ set(CMAKE_INSTALL_LIBDIR ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_INSTALL_BINDIR ${CMAKE_BINARY_DIR}/bin)
 
 #----------------------------------------------------------------------------
+# copy some necessary text files
+# this will always overwrite the files, including any changes in them
+# tried using file(COPY, file(GENERATE, and add_custom_command to get around this for grsirc, no success
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/thishigs.sh  ${CMAKE_CURRENT_BINARY_DIR}/thishigs.sh  COPYONLY)
+
+
+#----------------------------------------------------------------------------
+# copy includes, and examples
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/include DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/examples DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+#----------------------------------------------------------------------------
 # define all libraries and root dictionaries
 # for some we also create dependencies on other libraries to remove linking errors later on
 
@@ -87,8 +99,9 @@ add_library(Higs SHARED
 	${PROJECT_SOURCE_DIR}/src/BasicHelper.cxx
 	${PROJECT_SOURCE_DIR}/src/BasicFrame.cxx
 	${PROJECT_SOURCE_DIR}/src/DataFrameLibrary.cxx
+	${PROJECT_SOURCE_DIR}/src/Calibration.cxx
 	)
-	root_generate_dictionary(G__Higs BasicHelper.h BasicFrame.h DataFrameLibrary.h CustomMap.h Globals.h Options.h Redirect.h Singleton.h MODULE Higs LINKDEF ${PROJECT_SOURCE_DIR}/src/LinkDef.h)
+	root_generate_dictionary(G__Higs BasicHelper.h BasicFrame.h DataFrameLibrary.h Calibration.h CustomMap.h Globals.h Options.h Redirect.h Singleton.h MODULE Higs LINKDEF ${PROJECT_SOURCE_DIR}/src/LinkDef.h)
 target_link_libraries(Higs ${ROOT_LIBRARIES})
 
 #----------------------------------------------------------------------------
@@ -96,6 +109,16 @@ target_link_libraries(Higs ${ROOT_LIBRARIES})
 add_executable(HigsFrame ${PROJECT_SOURCE_DIR}/src/HigsFrame.cxx)
 
 target_link_libraries(HigsFrame Higs ${ROOT_LIBRARIES} ${X11_LIBRARIES} ${X11_Xpm_LIB})
+
+#----------------------------------------------------------------------------
+# clean up all copied files and directories
+# we're using grsisort as target here, because most (all?) of these do not belong to a specific target
+set_property(TARGET HigsFrame APPEND PROPERTY ADDITIONAL_CLEAN_FILES
+	${CMAKE_CURRENT_BINARY_DIR}/thishigs.sh
+	${CMAKE_CURRENT_BINARY_DIR}/module.modulemap
+	${CMAKE_INSTALL_BINDIR}
+	${CMAKE_INSTALL_LIBDIR}
+	)
 
 #----------------------------------------------------------------------------
 # create a compile_commands.json file which can be used for clang-tidy

@@ -4,6 +4,7 @@
 
 BasicHelper::BasicHelper(TList* input)
 {
+	fCalibration = static_cast<Calibration*>(input->FindObject("Calibration"));
 }
 
 void BasicHelper::Setup()

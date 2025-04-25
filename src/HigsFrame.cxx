@@ -20,7 +20,7 @@ int main(int argc, char** argv)
 {
    auto* stopwatch = new TStopwatch;
 
-	auto* options = new Options;
+	auto* options = Options::Get();
 
    // parse input options
 	bool parseError = false;
@@ -39,8 +39,21 @@ int main(int argc, char** argv)
 			options->Helper(argv[++i]);
 			continue;
 		}
+		if(strcmp(argv[i], "--calibration") == 0 || strcmp(argv[i], "-c") == 0) {
+			options->Calibration(argv[++i]);
+			continue;
+		}
+		if(strcmp(argv[i], "--tree-name") == 0 || strcmp(argv[i], "-t") == 0) {
+			options->TreeName(argv[++i]);
+			continue;
+		}
+		if(strcmp(argv[i], "--max-workers") == 0 || strcmp(argv[i], "-w") == 0) {
+			options->MaxWorkers(std::stoi(argv[++i]));
+			continue;
+		}
 		if(strcmp(argv[i], "--debug") == 0 || strcmp(argv[i], "-d") == 0) {
 			options->Debug(true);
+			continue;
 		}
 		std::cout << "Unkown command line option \"" << argv[i] << "\":" << std::endl;
 		parseError = true;
@@ -61,14 +74,22 @@ int main(int argc, char** argv)
 					 << "--input        <input root-file>                        needed" << std::endl
 					 << "--output       <output root-file>                       optional" << std::endl
 					 << "--helper       <datahelper source file>                 needed" << std::endl
+					 << "--tree-name    <name of root tree>                      optional" << std::endl
+					 << "--max-workers  <maximum number of threads>              optional" << std::endl
 					 << "--debug        no argument, enables debugging messages  optional" << std::endl;
 		return 1;
+	}
+
+	if(options->Debug()) {
+		options->Print();
 	}
 
 	// check the input file name and see if we can determine the run number
 	// assuming the name is xxxx_run???.bin_tree.root
 	std::string runNumberString = options->RunNumberString();
-	int runNumber = std::stoi(runNumberString);
+	if(options->Debug()) {
+		std::cout << "Got run number string " << runNumberString << std::endl;
+	}
 
    // determine the name of the helper (from the provided helper library) to create a redirect of stdout
    std::string logFileName = options->Helper();

@@ -8,5 +8,6 @@
 #pragma link         C++ nestedclasses;
 
 #pragma link C++ class DataFrameLibrary + ;
+#pragma link C++ class Calibration + ;
 
 #endif

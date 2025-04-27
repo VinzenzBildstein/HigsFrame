@@ -22,11 +22,11 @@ Command line arguments understood by Higsframe are:
 
 | Flag         | Arguments                               | needed or optional |
 | ------------ | --------------------------------------- | ------------------ |
-|--input       | <input root-file(s)>                    | needed             |
-|--helper      | <datahelper source file>                | needed             |
-|--output      | <output root-file>                      | optional           |
-|--tree-name   | <name of root tree>                     | optional           |
-|--max-workers | <maximum number of threads>             | optional           |
+|--input       | input root-file(s)                      | needed             |
+|--helper      | datahelper source file                  | needed             |
+|--output      | output root-file                        | optional           |
+|--tree-name   | name of root tree                       | optional           |
+|--max-workers | maximum number of threads               | optional           |
 |--debug       | no argument, enables debugging messages | optional           |
 
 Running that example helper would involve a call like this

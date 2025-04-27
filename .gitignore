@@ -3,4 +3,5 @@ thishigs.sh
 *.log
 *.o
 *.so
+.*.swp
 build

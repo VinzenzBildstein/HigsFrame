@@ -61,7 +61,7 @@ void ExampleHelper::Exec(unsigned int slot, ROOT::RVecD& crossAmplitude, ROOT::R
 	double addback = 0.;
 	for(size_t i = 0; i < crossAmplitude.size(); ++i) {
 		if(!std::isnan(crossAmplitude[i])) {
-			addback += crossAmplitude[i];
+			addback += fCalibration->Energy(crossAmplitude[i], i);
 		}
 		// check if this index is the last crystal of a detector
 		// assuming 0-3 are the crystals of the first detector, 4-7 the second detector and so on?
@@ -76,52 +76,58 @@ void ExampleHelper::Exec(unsigned int slot, ROOT::RVecD& crossAmplitude, ROOT::R
 	for(size_t i = 0; i < crossAmplitude.size(); ++i) {
 		if(std::isnan(crossAmplitude[i])) { continue; }
 		for(size_t j = 0; j < crossAmplitude.size(); ++j) {
-			if(std::isnan(crossAmplitude[j])) { continue; }
+			if(i == j || std::isnan(crossAmplitude[j])) { continue; }
 			fH2[slot].at("hp")->Fill(i, j);
 		}
 		for(size_t j = 0; j < backAmplitude.size(); ++j) {
 			if(std::isnan(backAmplitude[j])) { continue; }
 			fH2[slot].at("hp")->Fill(i, j + 16);
+			fH2[slot].at("hp")->Fill(j + 16, i);
 		}
 		for(size_t j = 0; j < miscAmplitude.size(); ++j) {
 			if(std::isnan(miscAmplitude[j])) { continue; }
 			fH2[slot].at("hp")->Fill(i, j + 32);
+			fH2[slot].at("hp")->Fill(j + 32, i);
 		}
 		for(size_t j = 0; j < cebrIntLong.size(); ++j) {
 			if(std::isnan(cebrIntLong[j])) { continue; }
 			fH2[slot].at("hp")->Fill(i, j + 48);
+			fH2[slot].at("hp")->Fill(j + 48, i);
 		}
 	}
 	for(size_t i = 0; i < backAmplitude.size(); ++i) {
 		if(std::isnan(backAmplitude[i])) { continue; }
 		for(size_t j = 0; j < backAmplitude.size(); ++j) {
-			if(std::isnan(backAmplitude[j])) { continue; }
+			if(i == j || std::isnan(backAmplitude[j])) { continue; }
 			fH2[slot].at("hp")->Fill(i + 16, j + 16);
 		}
 		for(size_t j = 0; j < miscAmplitude.size(); ++j) {
 			if(std::isnan(miscAmplitude[j])) { continue; }
 			fH2[slot].at("hp")->Fill(i + 16, j + 32);
+			fH2[slot].at("hp")->Fill(j + 32, i + 16);
 		}
 		for(size_t j = 0; j < cebrIntLong.size(); ++j) {
 			if(std::isnan(cebrIntLong[j])) { continue; }
 			fH2[slot].at("hp")->Fill(i + 16, j + 48);
+			fH2[slot].at("hp")->Fill(j + 48, i + 16);
 		}
 	}
 	for(size_t i = 0; i < miscAmplitude.size(); ++i) {
 		if(std::isnan(miscAmplitude[i])) { continue; }
 		for(size_t j = 0; j < miscAmplitude.size(); ++j) {
-			if(std::isnan(miscAmplitude[j])) { continue; }
+			if(i == j || std::isnan(miscAmplitude[j])) { continue; }
 			fH2[slot].at("hp")->Fill(i + 32, j + 32);
 		}
 		for(size_t j = 0; j < cebrIntLong.size(); ++j) {
 			if(std::isnan(cebrIntLong[j])) { continue; }
 			fH2[slot].at("hp")->Fill(i + 32, j + 48);
+			fH2[slot].at("hp")->Fill(j + 48, i + 32);
 		}
 	}
 	for(size_t i = 0; i < cebrIntLong.size(); ++i) {
 		if(std::isnan(cebrIntLong[i])) { continue; }
 		for(size_t j = 0; j < cebrIntLong.size(); ++j) {
-			if(std::isnan(cebrIntLong[j])) { continue; }
+			if(i == j || std::isnan(cebrIntLong[j])) { continue; }
 			fH2[slot].at("hp")->Fill(i + 48, j + 48);
 		}
 	}

@@ -1,4 +1,6 @@
 thishigs.sh
 *.root
 *.log
+*.o
+*.so
 build

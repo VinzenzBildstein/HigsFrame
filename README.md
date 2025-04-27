@@ -24,17 +24,21 @@ Command line arguments understood by Higsframe are:
 | ------------ | --------------------------------------- | ------------------ |
 |--input       | input root-file(s)                      | needed             |
 |--helper      | datahelper source file                  | needed             |
+|--calibration | calibration text file                   | optional           |
 |--output      | output root-file                        | optional           |
 |--tree-name   | name of root tree                       | optional           |
 |--max-workers | maximum number of threads               | optional           |
 |--debug       | no argument, enables debugging messages | optional           |
+
+The calibration file is expected to be a simple ASCII file using `#` as first character for comment lines, and otherwise simply pairs of offset and gain for each detector.
+The last two rows are assumed to be the time calibration and the timestamp calibration.
 
 Running that example helper would involve a call like this
 ```
 HigsFrame --input root_data_130Te-130Xe_run014.bin_tree.root --helper examples/ExampleHelper.cxx --max-workers 4 --calibration examples/April2025.cal
 ```
 
-This example run took 3 minutes 23 seconds to process the 5 GB input file.
+This example run took about 10 minutes to process the 5 GB input file using 4 threads.
 Note that the processing speed can vary based on the complexity of the helper, as well as the speed of the computer.
 
 ## Helpers

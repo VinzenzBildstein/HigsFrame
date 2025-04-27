@@ -72,10 +72,11 @@ int main(int argc, char** argv)
 	if(parseError) {
 		std::cout << "Commandline arguments for " << argv[0] << ":" << std::endl
 					 << "--input        <input root-file>                        needed" << std::endl
-					 << "--output       <output root-file>                       optional" << std::endl
 					 << "--helper       <datahelper source file>                 needed" << std::endl
-					 << "--tree-name    <name of root tree>                      optional" << std::endl
+					 << "--calibration  <calibration file>                       optional" << std::endl
 					 << "--max-workers  <maximum number of threads>              optional" << std::endl
+					 << "--output       <output root-file>                       optional" << std::endl
+					 << "--tree-name    <name of root tree>                      optional" << std::endl
 					 << "--debug        no argument, enables debugging messages  optional" << std::endl;
 		return 1;
 	}

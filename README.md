@@ -20,15 +20,15 @@ An example can be found in the examples directory.
 
 Command line arguments understood by Higsframe are:
 
-| Flag         | Arguments                               | needed or optional |
-| ------------ | --------------------------------------- | ------------------ |
-|--input       | input root-file(s)                      | needed             |
-|--helper      | datahelper source file                  | needed             |
-|--calibration | calibration text file                   | optional           |
-|--output      | output root-file                        | optional           |
-|--tree-name   | name of root tree                       | optional           |
-|--max-workers | maximum number of threads               | optional           |
-|--debug       | no argument, enables debugging messages | optional           |
+| Flag         | Short Flag | Arguments                               | needed or optional |
+| ------------ | ---------- | --------------------------------------- | ------------------ |
+|--input       | -i         | input root-file(s)                      | needed             |
+|--helper      | -h         | datahelper source file                  | needed             |
+|--calibration | -c         | calibration text file                   | optional           |
+|--output      | -o         | output root-file                        | optional           |
+|--tree-name   | -t         | name of root tree                       | optional           |
+|--max-workers | -w         | maximum number of threads               | optional           |
+|--debug       | -d         | no argument, enables debugging messages | optional           |
 
 The calibration file is expected to be a simple ASCII file using `#` as first character for comment lines, and otherwise simply pairs of offset and gain for each detector.
 The last two rows are assumed to be the time calibration and the timestamp calibration.

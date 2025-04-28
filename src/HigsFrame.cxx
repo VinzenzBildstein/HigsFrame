@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 			continue;
 		}
 		if(strcmp(argv[i], "--calibration") == 0 || strcmp(argv[i], "-c") == 0) {
-			options->Calibration(argv[++i]);
+			options->SetCalibration(argv[++i]);
 			continue;
 		}
 		if(strcmp(argv[i], "--tree-name") == 0 || strcmp(argv[i], "-t") == 0) {

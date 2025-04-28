@@ -61,7 +61,7 @@ BasicFrame::BasicFrame(Options* opt)
    // create an input list to pass to the helper
    auto* inputList = new TList;
 
-	inputList->Add(fOptions->Calibration());
+	inputList->Add(fOptions->GetCalibration());
 
    /// Try to load an external library with the correct function in it.
    /// If that library does not exist, try to compile it.
@@ -142,7 +142,7 @@ void BasicFrame::Run(Redirect*& redirect)
       std::cout << "Error, output list is nullptr!" << std::endl;
    }
 
-	fOptions->Calibration()->Write();
+	fOptions->GetCalibration()->Write();
 
    // start new redirect, appending to the previous files we had redirected to
    redirect = new Redirect(outFile, errFile, true);

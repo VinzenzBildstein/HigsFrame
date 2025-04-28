@@ -16,7 +16,7 @@ void ExampleHelper::CreateHistograms(unsigned int slot)
 	fH1[slot]["crossAddbackE"] = new TH1F("crossAddbackE", Form("Cross energy using addback;energy [keV];counts/%.1f keV", (highEnergy - lowEnergy) / energyBins), energyBins, lowEnergy, highEnergy);
 
 	// timing spectra
-   fH2[slot]["crossT"] = new TH2F("crossT", "Cross ID vs timinig relative to Cross_{0};time [ns];Cross ID", 1000, -50000., 50000., 15, 0.5, 15.5);
+   fH2[slot]["crossT"] = new TH2F("crossT", "Cross ID vs timinig relative to Cross_{0};time [ns];Cross ID", 1000, -2000., 2000., 15, 0.5, 15.5);
 
 	// hit pattern spectrum
 	fH2[slot]["hp"] = new TH2F("hp", "Hit pattern (cross = 0-15, back = 16-31, misc = 32-47, cebr = 48-63)", 64, -0.5, 63.5, 64, -0.5, 63.5);

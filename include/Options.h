@@ -7,8 +7,6 @@
 #include "Singleton.h"
 #include "Calibration.h"
 
-class Calibration;
-
 class Options : public Singleton<Options> {
 public:
 	Options() = default;
@@ -26,7 +24,7 @@ public:
 
 	std::string Helper() const { return fHelper; }
 
-	Calibration* Calibration() const { return fCalibration; }
+	Calibration* GetCalibration() const { return fCalibration; }
 
 	// setters
 	void Debug(bool debug) { fDebug = debug; if(fDebug) { std::cout << "Debugging enabled!" << std::endl; } }
@@ -41,7 +39,7 @@ public:
 
 	void Helper(const char* source) { fHelper = source; }
 
-	void Calibration(const char* file) { delete fCalibration; fCalibration = new class Calibration(file); }
+	void SetCalibration(const char* file) { delete fCalibration; fCalibration = new class Calibration(file); }
 
 	void Print()
 	{

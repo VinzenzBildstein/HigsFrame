@@ -15,7 +15,7 @@
 bool FileExists(const char* filename)
 {
    /// This checks if the path exist, and if it is a file and not a directory!
-   struct stat buffer{};
+   struct stat buffer {};
    int         state = stat(filename, &buffer);
    // state != 0 means we couldn't get file attributes. This doesn't necessary mean the file
    // does not exist, we might just be missing permission to access it. But for our purposes
@@ -24,7 +24,6 @@ bool FileExists(const char* filename)
    // we got the file attributes, so it exsist, we just need to check if it is a directory.
    return !S_ISDIR(buffer.st_mode);
 }
-
 
 // redeclare dlsym to be a function returning a function pointer instead of void *
 extern "C" void* (*dlsym(void* handle, const char* symbol))();
@@ -107,19 +106,19 @@ void DataFrameLibrary::Compile(std::string& path, const size_t& dot, const size_
    std::string headerFile    = path.replace(dot, std::string::npos, ".hh");
    std::string sharedLibrary = path.replace(dot, std::string::npos, ".so");
    // first we get the stats of the file's involved (.cxx, .hh, .so)
-   struct stat sourceStat{};
+   struct stat sourceStat {};
    if(stat(sourceFile.c_str(), &sourceStat) != 0) {
       std::ostringstream str;
       str << "Unable to access stat of source file " << sourceFile << std::endl;
       throw std::runtime_error(str.str());
    }
-   struct stat headerStat{};
+   struct stat headerStat {};
    if(stat(headerFile.c_str(), &headerStat) != 0) {
       std::ostringstream str;
       str << "Unable to access stat of header file " << headerFile << std::endl;
       throw std::runtime_error(str.str());
    }
-   struct stat frameLibStat{};
+   struct stat frameLibStat {};
    // get path of libTGRSIFrame via
    Dl_info info;
    if(dladdr(reinterpret_cast<void*>(DummyFunctionToLocateBasicFrameLibrary), &info) == 0) {
@@ -132,7 +131,7 @@ void DataFrameLibrary::Compile(std::string& path, const size_t& dot, const size_
       str << "Unable to access stat of " << info.dli_fname << std::endl;
       throw std::runtime_error(str.str());
    }
-   struct stat sharedLibStat{};
+   struct stat sharedLibStat {};
    if(stat(sharedLibrary.c_str(), &sharedLibStat) == 0 &&
       sharedLibStat.st_atime > sourceStat.st_atime &&
       sharedLibStat.st_atime > headerStat.st_atime &&
@@ -146,7 +145,7 @@ void DataFrameLibrary::Compile(std::string& path, const size_t& dot, const size_
       includePath = path.substr(0, slash);
    }
    std::cout << DCYAN << "----------  starting compilation of user code  ----------" << RESET_COLOR << std::endl;
-   std::string        objectFile        = path.replace(dot, std::string::npos, ".o");
+   std::string        objectFile = path.replace(dot, std::string::npos, ".o");
    std::ostringstream command;
    command << "g++ -c -fPIC -g $(root-config --cflags) -I$HIGSSYS/include -I" << includePath;
 #ifdef OS_DARWIN

@@ -20,43 +20,43 @@ int main(int argc, char** argv)
 {
    auto* stopwatch = new TStopwatch;
 
-	auto* options = Options::Get();
+   auto* options = Options::Get();
 
    // parse input options
-	bool parseError = false;
+   bool parseError = false;
    for(int i = 1; i < argc; ++i) {
-		if(strcmp(argv[i], "--input") == 0 || strcmp(argv[i], "-i") == 0) {
-			while(i + 1 < argc && argv[i + 1][0] != '-') {
-				options->AddInputFile(argv[++i]);
-			}
-			continue;
-		}
-		if(strcmp(argv[i], "--output") == 0 || strcmp(argv[i], "-o") == 0) {
-			options->OutputFileName(argv[++i]);
-			continue;
-		}
-		if(strcmp(argv[i], "--helper") == 0 || strcmp(argv[i], "-h") == 0) {
-			options->Helper(argv[++i]);
-			continue;
-		}
-		if(strcmp(argv[i], "--calibration") == 0 || strcmp(argv[i], "-c") == 0) {
-			options->SetCalibration(argv[++i]);
-			continue;
-		}
-		if(strcmp(argv[i], "--tree-name") == 0 || strcmp(argv[i], "-t") == 0) {
-			options->TreeName(argv[++i]);
-			continue;
-		}
-		if(strcmp(argv[i], "--max-workers") == 0 || strcmp(argv[i], "-w") == 0) {
-			options->MaxWorkers(std::stoi(argv[++i]));
-			continue;
-		}
-		if(strcmp(argv[i], "--debug") == 0 || strcmp(argv[i], "-d") == 0) {
-			options->Debug(true);
-			continue;
-		}
-		std::cout << "Unkown command line option \"" << argv[i] << "\":" << std::endl;
-		parseError = true;
+      if(strcmp(argv[i], "--input") == 0 || strcmp(argv[i], "-i") == 0) {
+         while(i + 1 < argc && argv[i + 1][0] != '-') {
+            options->AddInputFile(argv[++i]);
+         }
+         continue;
+      }
+      if(strcmp(argv[i], "--output") == 0 || strcmp(argv[i], "-o") == 0) {
+         options->OutputFileName(argv[++i]);
+         continue;
+      }
+      if(strcmp(argv[i], "--helper") == 0 || strcmp(argv[i], "-h") == 0) {
+         options->Helper(argv[++i]);
+         continue;
+      }
+      if(strcmp(argv[i], "--calibration") == 0 || strcmp(argv[i], "-c") == 0) {
+         options->SetCalibration(argv[++i]);
+         continue;
+      }
+      if(strcmp(argv[i], "--tree-name") == 0 || strcmp(argv[i], "-t") == 0) {
+         options->TreeName(argv[++i]);
+         continue;
+      }
+      if(strcmp(argv[i], "--max-workers") == 0 || strcmp(argv[i], "-w") == 0) {
+         options->MaxWorkers(std::stoi(argv[++i]));
+         continue;
+      }
+      if(strcmp(argv[i], "--debug") == 0 || strcmp(argv[i], "-d") == 0) {
+         options->Debug(true);
+         continue;
+      }
+      std::cout << "Unkown command line option \"" << argv[i] << "\":" << std::endl;
+      parseError = true;
    }
 
    // check that we have an input file and a helper to run on it
@@ -69,28 +69,28 @@ int main(int argc, char** argv)
       parseError = true;
    }
 
-	if(parseError) {
-		std::cout << "Commandline arguments for " << argv[0] << ":" << std::endl
-					 << "--input        <input root-file>                        needed" << std::endl
-					 << "--helper       <datahelper source file>                 needed" << std::endl
-					 << "--calibration  <calibration file>                       optional" << std::endl
-					 << "--max-workers  <maximum number of threads>              optional" << std::endl
-					 << "--output       <output root-file>                       optional" << std::endl
-					 << "--tree-name    <name of root tree>                      optional" << std::endl
-					 << "--debug        no argument, enables debugging messages  optional" << std::endl;
-		return 1;
-	}
+   if(parseError) {
+      std::cout << "Commandline arguments for " << argv[0] << ":" << std::endl
+                << "--input        <input root-file>                        needed" << std::endl
+                << "--helper       <datahelper source file>                 needed" << std::endl
+                << "--calibration  <calibration file>                       optional" << std::endl
+                << "--max-workers  <maximum number of threads>              optional" << std::endl
+                << "--output       <output root-file>                       optional" << std::endl
+                << "--tree-name    <name of root tree>                      optional" << std::endl
+                << "--debug        no argument, enables debugging messages  optional" << std::endl;
+      return 1;
+   }
 
-	if(options->Debug()) {
-		options->Print();
-	}
+   if(options->Debug()) {
+      options->Print();
+   }
 
-	// check the input file name and see if we can determine the run number
-	// assuming the name is xxxx_run???.bin_tree.root
-	std::string runNumberString = options->RunNumberString();
-	if(options->Debug()) {
-		std::cout << "Got run number string " << runNumberString << std::endl;
-	}
+   // check the input file name and see if we can determine the run number
+   // assuming the name is xxxx_run???.bin_tree.root
+   std::string runNumberString = options->RunNumberString();
+   if(options->Debug()) {
+      std::cout << "Got run number string " << runNumberString << std::endl;
+   }
 
    // determine the name of the helper (from the provided helper library) to create a redirect of stdout
    std::string logFileName = options->Helper();

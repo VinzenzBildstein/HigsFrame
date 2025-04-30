@@ -69,7 +69,6 @@ typedef char int8_t;
 
 #include "TEnv.h"
 
-
 //-------------------- three function templates that print all arguments into a string
 // this template uses existing stream and appends the last argument to it
 template <typename T>

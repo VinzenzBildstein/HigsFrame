@@ -3,7 +3,7 @@
 #if ROOT_VERSION_CODE >= ROOT_VERSION(6, 14, 0)
 
 BasicHelper::BasicHelper(TList* input)
-	: fCalibration(static_cast<Calibration*>(input->FindObject("Calibration")))
+   : fCalibration(static_cast<Calibration*>(input->FindObject("Calibration")))
 {
 }
 

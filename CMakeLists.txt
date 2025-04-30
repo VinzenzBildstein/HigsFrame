@@ -83,8 +83,11 @@ set(CMAKE_INSTALL_BINDIR ${CMAKE_BINARY_DIR}/bin)
 # copy some necessary text files
 # this will always overwrite the files, including any changes in them
 # tried using file(COPY, file(GENERATE, and add_custom_command to get around this for grsirc, no success
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/thishigs.sh  ${CMAKE_CURRENT_BINARY_DIR}/thishigs.sh  COPYONLY)
-
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/thishigs.sh)
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/thishigs.sh  ${CMAKE_CURRENT_BINARY_DIR}/thishigs.sh  COPYONLY)
+else()
+	message("${CMAKE_CURRENT_SOURCE_DIR}/thishigs.sh not found?")
+endif()
 
 #----------------------------------------------------------------------------
 # copy includes, and examples

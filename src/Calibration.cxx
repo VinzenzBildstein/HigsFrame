@@ -21,7 +21,7 @@ Calibration::Calibration(const char* file)
 			}
 			std::stringstream str(line);
 			if(valuesRead < 48) {
-				double tmp;
+				double tmp = NAN;
 				str >> tmp;
 				fOffset.push_back(tmp);
 				str >> tmp;

@@ -33,7 +33,7 @@ public:
 
 	void TreeName(const char* name) { fTreeName = name; }
 
-	void MaxWorkers(int num) { fMaxWorkers = std::move(num); }
+	void MaxWorkers(const int& num) { fMaxWorkers = num; }
 
 	void OutputFileName(const char* file) { fOutputFileName = file; }
 

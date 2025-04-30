@@ -122,6 +122,7 @@ set_property(TARGET HigsFrame APPEND PROPERTY ADDITIONAL_CLEAN_FILES
 
 #----------------------------------------------------------------------------
 # create a compile_commands.json file which can be used for clang-tidy
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 if(NOT DEFINED ENV{CMAKE_EXPORT_COMPILE_COMMANDS})
 	message("ENV(CMAKE_EXPORT_COMPILE_COMMANDS) NOT DEFINED, setting it to TRUE")
 	set($ENV{CMAKE_EXPORT_COMPILE_COMMANDS} TRUE)

@@ -31,7 +31,7 @@ public:
    }
 
 private:
-   DataFrameLibrary()                                    = default;
+   DataFrameLibrary()                                   = default;
    DataFrameLibrary(const DataFrameLibrary&)            = default;
    DataFrameLibrary(DataFrameLibrary&&)                 = default;
    DataFrameLibrary& operator=(const DataFrameLibrary&) = default;

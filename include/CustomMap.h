@@ -26,12 +26,12 @@ template <typename key_type, typename mapped_type, typename key_compare = std::l
           typename allocator_type = std::allocator<std::pair<const key_type, mapped_type>>>
 class CustomMap {
 public:
-   CustomMap()                               = default;
+   CustomMap()                                = default;
    CustomMap(const CustomMap&)                = default;
    CustomMap(CustomMap&&) noexcept            = default;
    CustomMap& operator=(const CustomMap&)     = default;
    CustomMap& operator=(CustomMap&&) noexcept = default;
-   ~CustomMap()                              = default;
+   ~CustomMap()                               = default;
 
    void Print()
    {

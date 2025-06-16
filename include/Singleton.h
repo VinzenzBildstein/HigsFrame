@@ -174,7 +174,7 @@ public:
    }
 
 protected:
-   Singleton()                                 = default;
+   Singleton()                                = default;
    Singleton(const Singleton&)                = default;
    Singleton(Singleton&&) noexcept            = default;
    Singleton& operator=(const Singleton&)     = default;

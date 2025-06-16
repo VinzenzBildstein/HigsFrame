@@ -15,7 +15,7 @@
 
 // This assumes the options have been set from argc and argv before! That's true when using grsiframe, other programs need to ensure this happens.
 BasicFrame::BasicFrame(Options* opt)
-	: fOptions(opt)
+   : fOptions(opt)
 {
 #if ROOT_VERSION_CODE >= ROOT_VERSION(6, 24, 0)
    // this increases RDF's verbosity level as long as the `fVerbosity` variable is in scope, i.e. until BasicFrame is destroyed
@@ -29,15 +29,15 @@ BasicFrame::BasicFrame(Options* opt)
 #endif
 
    std::string treeName = fOptions->TreeName();
-	if(treeName.empty()) {
-		TFile check(fOptions->InputFiles()[0].c_str());
-		if(check.Get("higs_data") != nullptr) {
-			treeName = "higs_data";
-		}
-		check.Close();
-	}
-	if(treeName.empty()) {
-		std::ostringstream str;
+   if(treeName.empty()) {
+      TFile check(fOptions->InputFiles()[0].c_str());
+      if(check.Get("higs_data") != nullptr) {
+         treeName = "higs_data";
+      }
+      check.Close();
+   }
+   if(treeName.empty()) {
+      std::ostringstream str;
       str << "Failed to find 'higs_data' in '" << fOptions->InputFiles()[0] << "', either provide a different tree name via --tree-name flag or check input file" << std::endl;
       throw std::runtime_error(str.str());
    }
@@ -65,7 +65,7 @@ BasicFrame::BasicFrame(Options* opt)
    // create an input list to pass to the helper
    auto* inputList = new TList;
 
-	inputList->Add(fOptions->Calibration());
+   inputList->Add(fOptions->GetCalibration());
 
    /// Try to load an external library with the correct function in it.
    /// If that library does not exist, try to compile it.
@@ -146,7 +146,7 @@ void BasicFrame::Run(Redirect*& redirect)
       std::cout << "Error, output list is nullptr!" << std::endl;
    }
 
-	fOptions->Calibration()->Write();
+   fOptions->GetCalibration()->Write();
 
    // start new redirect, appending to the previous files we had redirected to
    redirect = new Redirect(outFile, errFile, true);

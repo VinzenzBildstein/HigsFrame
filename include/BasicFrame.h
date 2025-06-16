@@ -17,12 +17,12 @@
 
 class BasicFrame {
 public:
-   BasicFrame(Options* opt);
+   explicit BasicFrame(Options* opt);
 
    void Run(Redirect*& redirect);
 
 private:
-	Options*                                            fOptions;
+   Options*                                            fOptions;
    std::string                                         fOutputPrefix{"default"};
    ROOT::RDF::RResultPtr<std::map<std::string, TList>> fOutput;
 

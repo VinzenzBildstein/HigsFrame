@@ -20,7 +20,11 @@ BasicFrame::BasicFrame(Options* opt)
 #if ROOT_VERSION_CODE >= ROOT_VERSION(6, 24, 0)
    // this increases RDF's verbosity level as long as the `fVerbosity` variable is in scope, i.e. until BasicFrame is destroyed
    if(fOptions->Debug()) {
+#if ROOT_VERSION_CODE >= ROOT_VERSION(6, 36, 0)
+      fVerbosity = new ROOT::RLogScopedVerbosity(ROOT::Detail::RDF::RDFLogChannel(), ROOT::ELogLevel::kInfo);
+#else
       fVerbosity = new ROOT::Experimental::RLogScopedVerbosity(ROOT::Detail::RDF::RDFLogChannel(), ROOT::Experimental::ELogLevel::kInfo);
+#endif
    }
 #endif
 

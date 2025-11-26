@@ -34,7 +34,7 @@ The calibration file is expected to be a simple ASCII file using `#` as first ch
 The last two rows are assumed to be the time calibration and the timestamp calibration.
 
 Running that example helper would involve a call like this
-```
+```bash
 HigsFrame --input root_data_130Te-130Xe_run014.bin_tree.root --helper examples/ExampleHelper.cxx --max-workers 4 --calibration examples/April2025.cal
 ```
 
